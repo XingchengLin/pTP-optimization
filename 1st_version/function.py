@@ -25,12 +25,24 @@ def my_le_range(start, end, step):
         start += step
 ###########################################
 
-# Note here we add a "dimension reduction" where the first dimension of the weight_vector being restricted to constant value 0.5;
+def function( weight_vector, *args ):
 
+    # Check and copy the existence of a file, and make copy;
+    for i in my_lt_range(1, 1000000, 1):
+        targetFile = "backup/weight." + str(i) + ".txt";
+        if (os.path.isfile(targetFile)):
+            pass;
+        else:
+            src = "tmp_weight.txt";
+            shutil.copy(src, targetFile);
+            break;
+    
+    # Reshape matrix back;
+    nRow=int(subprocess.check_output("wc -l ../qimap.out | cut -f1 -d' '", shell=True));
+    nCol = len(weight_vector);
 
-def function_multi( weight_vector_DR, *matrix ):
+    matrix = np.reshape(args, (nRow, nCol));
 
-    weight_vector = np.insert(weight_vector_DR, 0, 0.5);
 
     # Multiply the matrix with its corresponding weight, add up to be the weighted Q;
     weighted_Q = np.dot(matrix, weight_vector);
@@ -103,31 +115,24 @@ def function_multi( weight_vector_DR, *matrix ):
 
     # Take the largest number of pTPr and return;
     infile = open("pTPr.txt", "r");
-    matrix_pTPr = [line.strip().split() for line in infile];
+    matrix = [line.strip().split() for line in infile];
     infile.close();
-    length = len(matrix_pTPr);
+    length = len(matrix);
     maxPTPr = 0.0;
 
     for i in my_lt_range(0, length, 1):
-        tmp = float(matrix_pTPr[i][1]);
+        tmp = float(matrix[i][1]);
         if (tmp > maxPTPr):
             maxPTPr = tmp;
            
-#    # Update the weight_vector_ptpr array;
-#    weight_vector_ptpr = np.append(weight_vector, maxPTPr);
-#    # Output to a tmp file;
-#    np.savetxt('tmp_weight_ptpr.txt', weight_vector_ptpr, fmt='%6f');
-#
-#    # Check and copy the existence of a file, and make copy;
-#    for i in my_lt_range(1, 1000000, 1):
-#        targetFile = "backup/ptprweight." + str(i) + ".txt";
-#        if (os.path.isfile(targetFile)):
-#            pass;
-#        else:
-#            src = "tmp_weight_ptpr.txt";
-#            shutil.copy(src, targetFile);
-#            break;
-    
+    outfile_weight = open("tmp_weight.txt", "w");
+
+    for i in my_lt_range(0, len(weight_vector), 1):
+        outfile_weight.write(str(weight_vector[i]) + "\n");
+
+    outfile_weight.write("The best pTPr is:" + "\n" + str(maxPTPr) + "\n");
+    outfile_weight.close();
+
     return -1*maxPTPr;
 
 ############################################################################

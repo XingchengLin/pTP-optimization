@@ -31,27 +31,23 @@ def my_le_range(start, end, step):
         start += step
 ###########################################
 
-# Get the qimap through g_kuh;
-
 # Read in qimap into a matrix;
 matrix = np.loadtxt("../qimap.out", dtype='int8');
 scipy.io.savemat('../qimap.mat', {'matrix': matrix});
 
 mdict = scipy.io.loadmat("../qimap.mat");
 matrix = mdict['matrix'];
-del mdict;
 
 # Reshape into a 1-D array;
 #nRow = np.size(matrix,0);
 nCol = np.size(matrix, 1);
 # Number of contacts is equal to the number of columns in qimap.out file;
 NoCon = nCol;
-tArgs = tuple(matrix);
 
 # Parallelization;
-# Apply CG;
-from nm_ini_multi import nm_ini_multi;
-p1 = multiprocessing.Process(target=nm_ini_multi, args=(tArgs, NoCon));
+# Apply Nelder Mead;
+from nm_ini_multi_alter import nm_ini_multi_alter;
+p1 = multiprocessing.Process(target=nm_ini_multi_alter, args=(NoCon,));
 # Get the last character of the process name, which will be a number from 1 to the # of processes;
 directory = "cg." + p1.name[-1];
 if os.path.exists(directory):
@@ -64,7 +60,7 @@ p1.start();
 os.chdir("../");
 
 
-p2 = multiprocessing.Process(target=nm_ini_multi, args=(tArgs, NoCon));
+p2 = multiprocessing.Process(target=nm_ini_multi_alter, args=(NoCon,));
 # Get the last character of the process name, which will be a number from 1 to the # of processes;
 directory = "cg." + p2.name[-1];
 if os.path.exists(directory):
@@ -76,7 +72,7 @@ os.chdir(directory);
 p2.start();
 os.chdir("../");
 
-p3 = multiprocessing.Process(target=nm_ini_multi, args=(tArgs, NoCon));
+p3 = multiprocessing.Process(target=nm_ini_multi_alter, args=(NoCon,));
 # Get the last character of the process name, which will be a number from 1 to the # of processes;
 directory = "cg." + p3.name[-1];
 if os.path.exists(directory):
@@ -88,7 +84,7 @@ os.chdir(directory);
 p3.start();
 os.chdir("../");
 
-p4 = multiprocessing.Process(target=nm_ini_multi, args=(tArgs, NoCon));
+p4 = multiprocessing.Process(target=nm_ini_multi_alter, args=(NoCon,));
 # Get the last character of the process name, which will be a number from 1 to the # of processes;
 directory = "cg." + p4.name[-1];
 if os.path.exists(directory):
@@ -100,7 +96,7 @@ os.chdir(directory);
 p4.start();
 os.chdir("../");
 
-#p5 = multiprocessing.Process(target=nm_ini_multi, args=(tArgs, NoCon));
+#p5 = multiprocessing.Process(target=nm_ini_multi_alter, args=(tArgs, NoCon));
 ## Get the last character of the process name, which will be a number from 1 to the # of processes;
 #directory = "cg." + p5.name[-1];
 #if os.path.exists(directory):
@@ -112,7 +108,7 @@ os.chdir("../");
 #p5.start();
 #os.chdir("../");
 #
-#p6 = multiprocessing.Process(target=nm_ini_multi, args=(tArgs, NoCon));
+#p6 = multiprocessing.Process(target=nm_ini_multi_alter, args=(tArgs, NoCon));
 ## Get the last character of the process name, which will be a number from 1 to the # of processes;
 #directory = "cg." + p6.name[-1];
 #if os.path.exists(directory):

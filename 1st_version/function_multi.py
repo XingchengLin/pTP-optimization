@@ -32,6 +32,7 @@ def function_multi( weight_vector_DR, *matrix ):
 
     weight_vector = np.insert(weight_vector_DR, 0, 0.5);
 
+
     # Multiply the matrix with its corresponding weight, add up to be the weighted Q;
     weighted_Q = np.dot(matrix, weight_vector);
 
@@ -103,13 +104,13 @@ def function_multi( weight_vector_DR, *matrix ):
 
     # Take the largest number of pTPr and return;
     infile = open("pTPr.txt", "r");
-    matrix_pTPr = [line.strip().split() for line in infile];
+    matrix = [line.strip().split() for line in infile];
     infile.close();
-    length = len(matrix_pTPr);
+    length = len(matrix);
     maxPTPr = 0.0;
 
     for i in my_lt_range(0, length, 1):
-        tmp = float(matrix_pTPr[i][1]);
+        tmp = float(matrix[i][1]);
         if (tmp > maxPTPr):
             maxPTPr = tmp;
            

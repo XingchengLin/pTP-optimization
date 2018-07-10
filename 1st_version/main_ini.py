@@ -17,7 +17,6 @@ import time;
 import multiprocessing;
 import ctypes;
 import shutil;
-import scipy.io
 
 ################################################
 def my_lt_range(start, end, step):
@@ -32,23 +31,31 @@ def my_le_range(start, end, step):
 ###########################################
 
 # Get the qimap through g_kuh;
+#os.environ["la"] = "/home/xl23/bin/mpigmx504sbm-v8.1-plu/bin";
+
+#subprocess.call("$la/gmx kuh -abscut -noshortcut -cut 0.1 -f ../v504_short.xtc -n natcont.ndx -o Q.gkuh.out -s ../smog.gro -times -i qimap.out -qiformat list", shell=True);
 
 # Read in qimap into a matrix;
-matrix = np.loadtxt("../qimap.out", dtype='int8');
-scipy.io.savemat('../qimap.mat', {'matrix': matrix});
-
-mdict = scipy.io.loadmat("../qimap.mat");
-matrix = mdict['matrix'];
-del mdict;
-
+infile = open("../qimap.out", "r");
+matrix = [map(int,line.split()) for line in infile];
+matrix = np.asarray(matrix);
 # Reshape into a 1-D array;
 #nRow = np.size(matrix,0);
 nCol = np.size(matrix, 1);
 # Number of contacts is equal to the number of columns in qimap.out file;
 NoCon = nCol;
+#args = matrix.flatten();
 tArgs = tuple(matrix);
 
+infile.close();
+
 # Parallelization;
+#import multiprocessing.sharedctypes;
+#shared_array_base = multiprocessing.sharedctypes.Array(ctypes.c_int, args);
+#shared_array = np.ctypeslib.as_array(shared_array_base.get_obj())
+#shared_array = np.frombuffer(args, dtype=int);
+
+#pool = multiprocessing.Pool(processes=3);
 # Apply CG;
 from nm_ini_multi import nm_ini_multi;
 p1 = multiprocessing.Process(target=nm_ini_multi, args=(tArgs, NoCon));
@@ -100,27 +107,27 @@ os.chdir(directory);
 p4.start();
 os.chdir("../");
 
-#p5 = multiprocessing.Process(target=nm_ini_multi, args=(tArgs, NoCon));
-## Get the last character of the process name, which will be a number from 1 to the # of processes;
-#directory = "cg." + p5.name[-1];
-#if os.path.exists(directory):
-#    shutil.rmtree(directory);
-#bkdirectory = directory + "/backup";
-#os.makedirs(bkdirectory);
-#subprocess.call("cp *.py '%s'" %(directory), shell=True);
-#os.chdir(directory);
-#p5.start();
-#os.chdir("../");
-#
-#p6 = multiprocessing.Process(target=nm_ini_multi, args=(tArgs, NoCon));
-## Get the last character of the process name, which will be a number from 1 to the # of processes;
-#directory = "cg." + p6.name[-1];
-#if os.path.exists(directory):
-#    shutil.rmtree(directory);
-#bkdirectory = directory + "/backup";
-#os.makedirs(bkdirectory);
-#subprocess.call("cp *.py '%s'" %(directory), shell=True);
-#os.chdir(directory);
-#p6.start();
-#os.chdir("../");
+p5 = multiprocessing.Process(target=nm_ini_multi, args=(tArgs, NoCon));
+# Get the last character of the process name, which will be a number from 1 to the # of processes;
+directory = "cg." + p5.name[-1];
+if os.path.exists(directory):
+    shutil.rmtree(directory);
+bkdirectory = directory + "/backup";
+os.makedirs(bkdirectory);
+subprocess.call("cp *.py '%s'" %(directory), shell=True);
+os.chdir(directory);
+p5.start();
+os.chdir("../");
+
+p6 = multiprocessing.Process(target=nm_ini_multi, args=(tArgs, NoCon));
+# Get the last character of the process name, which will be a number from 1 to the # of processes;
+directory = "cg." + p6.name[-1];
+if os.path.exists(directory):
+    shutil.rmtree(directory);
+bkdirectory = directory + "/backup";
+os.makedirs(bkdirectory);
+subprocess.call("cp *.py '%s'" %(directory), shell=True);
+os.chdir(directory);
+p6.start();
+os.chdir("../");
 

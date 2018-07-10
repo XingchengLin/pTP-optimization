@@ -31,6 +31,8 @@ def my_le_range(start, end, step):
 ###########################################
 
 def nm_ini_multi( tArgs, NoCon ):
+#    shared_array = np.frombuffer(shared_array_base.get_obj(), dtype="int32");
+#    tArgs = tuple(shared_array);
 
     # Read in the weight vector from weight_read.txt
     #weight_vector = [];
@@ -45,7 +47,6 @@ def nm_ini_multi( tArgs, NoCon ):
 
     # Randomly generate a initial weight_vector;
     pid = os.getpid();
-    
     # change random seed;
     np.random.seed(pid);
 

@@ -12,6 +12,7 @@ import shutil;
 import math;
 import numpy as np;
 import time;
+import scipy.io;
 
 ################################################
 def my_lt_range(start, end, step):
@@ -28,12 +29,20 @@ def my_le_range(start, end, step):
 # Note here we add a "dimension reduction" where the first dimension of the weight_vector being restricted to constant value 0.5;
 
 
-def function_multi( weight_vector_DR, *matrix ):
+def function_multi_alter( weight_vector_DR ):
+
+    # Load in the contact map list;
+    mdict = scipy.io.loadmat("../qimap.mat");
+    matrix = mdict['matrix'];
 
     weight_vector = np.insert(weight_vector_DR, 0, 0.5);
 
     # Multiply the matrix with its corresponding weight, add up to be the weighted Q;
     weighted_Q = np.dot(matrix, weight_vector);
+
+    # Free the memory;
+    del mdict;
+    del matrix;
 
     # Find the maximum and minimum value of weighted_Q values; They will be the boundaries of Q values;
     weightedQ_max = np.amax(weighted_Q);
