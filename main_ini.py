@@ -31,7 +31,6 @@ def my_le_range(start, end, step):
         start += step
 ###########################################
 
-# Get the qimap through g_kuh;
 
 # Read in qimap into a matrix;
 matrix = np.loadtxt("../qimap.out", dtype='int8');

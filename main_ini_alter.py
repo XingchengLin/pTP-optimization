@@ -37,6 +37,7 @@ scipy.io.savemat('../qimap.mat', {'matrix': matrix});
 
 mdict = scipy.io.loadmat("../qimap.mat");
 matrix = mdict['matrix'];
+del mdict;
 
 # Reshape into a 1-D array;
 #nRow = np.size(matrix,0);

@@ -42,12 +42,11 @@ del mdict;
 nCol = np.size(matrix, 1);
 # Number of contacts is equal to the number of columns in qimap.out file;
 NoCon = nCol;
-tArgs = tuple(matrix);
 
 # Parallelization;
-# Apply CG;
-from nm_again_multi import nm_again_multi;
-p1 = multiprocessing.Process(target=nm_again_multi, args=(tArgs, NoCon));
+# Apply Nelder Mead;
+from nm_again_multi_alter import nm_again_multi_alter;
+p1 = multiprocessing.Process(target=nm_again_multi_alter, args=(NoCon));
 # Get the last character of the process name, which will be a number from 1 to the # of processes;
 directory = "cg." + p1.name[-1];
 os.chdir(directory);
@@ -55,35 +54,35 @@ p1.start();
 os.chdir("../");
 
 
-p2 = multiprocessing.Process(target=nm_again_multi, args=(tArgs, NoCon));
+p2 = multiprocessing.Process(target=nm_again_multi_alter, args=(NoCon));
 # Get the last character of the process name, which will be a number from 1 to the # of processes;
 directory = "cg." + p2.name[-1];
 os.chdir(directory);
 p2.start();
 os.chdir("../");
 
-p3 = multiprocessing.Process(target=nm_again_multi, args=(tArgs, NoCon));
+p3 = multiprocessing.Process(target=nm_again_multi_alter, args=(NoCon));
 # Get the last character of the process name, which will be a number from 1 to the # of processes;
 directory = "cg." + p3.name[-1];
 os.chdir(directory);
 p3.start();
 os.chdir("../");
 
-p4 = multiprocessing.Process(target=nm_again_multi, args=(tArgs, NoCon));
+p4 = multiprocessing.Process(target=nm_again_multi_alter, args=(NoCon));
 # Get the last character of the process name, which will be a number from 1 to the # of processes;
 directory = "cg." + p4.name[-1];
 os.chdir(directory);
 p4.start();
 os.chdir("../");
 
-p5 = multiprocessing.Process(target=nm_again_multi, args=(tArgs, NoCon));
+p5 = multiprocessing.Process(target=nm_again_multi_alter, args=(NoCon));
 # Get the last character of the process name, which will be a number from 1 to the # of processes;
 directory = "cg." + p5.name[-1];
 os.chdir(directory);
 p5.start();
 os.chdir("../");
 
-p6 = multiprocessing.Process(target=nm_again_multi, args=(tArgs, NoCon));
+p6 = multiprocessing.Process(target=nm_again_multi_alter, args=(NoCon));
 # Get the last character of the process name, which will be a number from 1 to the # of processes;
 directory = "cg." + p6.name[-1];
 os.chdir(directory);
