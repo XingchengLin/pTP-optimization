@@ -46,7 +46,7 @@ NoCon = nCol;
 # Parallelization;
 # Apply Nelder Mead;
 from nm_again_multi_alter import nm_again_multi_alter;
-p1 = multiprocessing.Process(target=nm_again_multi_alter, args=(NoCon));
+p1 = multiprocessing.Process(target=nm_again_multi_alter, args=(NoCon,));
 # Get the last character of the process name, which will be a number from 1 to the # of processes;
 directory = "cg." + p1.name[-1];
 os.chdir(directory);
@@ -54,38 +54,52 @@ p1.start();
 os.chdir("../");
 
 
-p2 = multiprocessing.Process(target=nm_again_multi_alter, args=(NoCon));
+p2 = multiprocessing.Process(target=nm_again_multi_alter, args=(NoCon,));
 # Get the last character of the process name, which will be a number from 1 to the # of processes;
 directory = "cg." + p2.name[-1];
 os.chdir(directory);
 p2.start();
 os.chdir("../");
 
-p3 = multiprocessing.Process(target=nm_again_multi_alter, args=(NoCon));
+p3 = multiprocessing.Process(target=nm_again_multi_alter, args=(NoCon,));
 # Get the last character of the process name, which will be a number from 1 to the # of processes;
 directory = "cg." + p3.name[-1];
 os.chdir(directory);
 p3.start();
 os.chdir("../");
 
-p4 = multiprocessing.Process(target=nm_again_multi_alter, args=(NoCon));
+p4 = multiprocessing.Process(target=nm_again_multi_alter, args=(NoCon,));
 # Get the last character of the process name, which will be a number from 1 to the # of processes;
 directory = "cg." + p4.name[-1];
 os.chdir(directory);
 p4.start();
 os.chdir("../");
 
-p5 = multiprocessing.Process(target=nm_again_multi_alter, args=(NoCon));
-# Get the last character of the process name, which will be a number from 1 to the # of processes;
-directory = "cg." + p5.name[-1];
-os.chdir(directory);
-p5.start();
-os.chdir("../");
-
-p6 = multiprocessing.Process(target=nm_again_multi_alter, args=(NoCon));
-# Get the last character of the process name, which will be a number from 1 to the # of processes;
-directory = "cg." + p6.name[-1];
-os.chdir(directory);
-p6.start();
-os.chdir("../");
-
+#p5 = multiprocessing.Process(target=nm_again_multi_alter, args=(NoCon,));
+## Get the last character of the process name, which will be a number from 1 to the # of processes;
+#directory = "cg." + p5.name[-1];
+#os.chdir(directory);
+#p5.start();
+#os.chdir("../");
+#
+#p6 = multiprocessing.Process(target=nm_again_multi_alter, args=(NoCon,));
+## Get the last character of the process name, which will be a number from 1 to the # of processes;
+#directory = "cg." + p6.name[-1];
+#os.chdir(directory);
+#p6.start();
+#os.chdir("../");
+#
+#p7 = multiprocessing.Process(target=nm_again_multi_alter, args=(NoCon,));
+## Get the last character of the process name, which will be a number from 1 to the # of processes;
+#directory = "cg." + p7.name[-1];
+#os.chdir(directory);
+#p7.start();
+#os.chdir("../");
+#
+#p8 = multiprocessing.Process(target=nm_again_multi_alter, args=(NoCon,));
+## Get the last character of the process name, which will be a number from 1 to the # of processes;
+#directory = "cg." + p8.name[-1];
+#os.chdir(directory);
+#p8.start();
+#os.chdir("../");
+#

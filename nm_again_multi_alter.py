@@ -30,7 +30,7 @@ def my_le_range(start, end, step):
         start += step
 ###########################################
 
-def nm_again_multi( NoCon ):
+def nm_again_multi_alter( NoCon ):
 
     # Read in the weight vector from weight_read.txt
 
