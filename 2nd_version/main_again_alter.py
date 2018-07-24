@@ -18,7 +18,6 @@ import multiprocessing;
 import ctypes;
 import shutil;
 import scipy.io
-import sys
 
 ################################################
 def my_lt_range(start, end, step):
@@ -36,7 +35,6 @@ def my_le_range(start, end, step):
 # Read in qimap into a matrix;
 mdict = scipy.io.loadmat("../qimap.mat");
 matrix = mdict['matrix'];
-
 del mdict;
 
 # Reshape into a 1-D array;
@@ -62,21 +60,21 @@ directory = "cg." + p2.name[-1];
 os.chdir(directory);
 p2.start();
 os.chdir("../");
-#
-#p3 = multiprocessing.Process(target=nm_again_multi_alter, args=(NoCon,));
-## Get the last character of the process name, which will be a number from 1 to the # of processes;
-#directory = "cg." + p3.name[-1];
-#os.chdir(directory);
-#p3.start();
-#os.chdir("../");
-#
-#p4 = multiprocessing.Process(target=nm_again_multi_alter, args=(NoCon,));
-## Get the last character of the process name, which will be a number from 1 to the # of processes;
-#directory = "cg." + p4.name[-1];
-#os.chdir(directory);
-#p4.start();
-#os.chdir("../");
-#
+
+p3 = multiprocessing.Process(target=nm_again_multi_alter, args=(NoCon,));
+# Get the last character of the process name, which will be a number from 1 to the # of processes;
+directory = "cg." + p3.name[-1];
+os.chdir(directory);
+p3.start();
+os.chdir("../");
+
+p4 = multiprocessing.Process(target=nm_again_multi_alter, args=(NoCon,));
+# Get the last character of the process name, which will be a number from 1 to the # of processes;
+directory = "cg." + p4.name[-1];
+os.chdir(directory);
+p4.start();
+os.chdir("../");
+
 #p5 = multiprocessing.Process(target=nm_again_multi_alter, args=(NoCon,));
 ## Get the last character of the process name, which will be a number from 1 to the # of processes;
 #directory = "cg." + p5.name[-1];

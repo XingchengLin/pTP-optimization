@@ -12,10 +12,6 @@ import shutil;
 import math;
 import numpy as np;
 import time;
-import sys;
-import scipy.io;
-import SharedArray as sa
-
 
 ################################################
 def my_lt_range(start, end, step):
@@ -31,25 +27,11 @@ def my_le_range(start, end, step):
 
 # Note here we add a "dimension reduction" where the first dimension of the weight_vector being restricted to constant value 0.5;
 
-def function_multi( weight_vector_DR, *tArgs ):
 
-#    # Attach the tArgs from the shared memory;
-#    matrix = sa.attach("shm://test")
-#    mdict = scipy.io.loadmat("../qimap.mat");
-#    matrix = mdict['matrix'];    
-#    print matrix
-
-    # Make it back into the array from the shared C-type array;
-    
-    X_ctypes = tArgs[0]
-    X_shape = tArgs[1]
-
-    matrix = np.frombuffer(X_ctypes).reshape(X_shape)
-
-    print id(matrix)
+def function_multi( weight_vector_DR, *matrix ):
 
     weight_vector = np.insert(weight_vector_DR, 0, 0.5);
-    
+
     # Multiply the matrix with its corresponding weight, add up to be the weighted Q;
     weighted_Q = np.dot(matrix, weight_vector);
 
@@ -147,7 +129,7 @@ def function_multi( weight_vector_DR, *tArgs ):
 #            break;
     
     return -1*maxPTPr;
-#    return np.random.rand(1)[0]
+
 ############################################################################
 print "Love is an endless mystery,"
 print "for it has nothing else to explain it."

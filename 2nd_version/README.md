@@ -10,8 +10,3 @@ Note, you also need to replace the optimize.py file in
 anaconda2/lib/python2.7/site-packages/scipy/optimize/
 
 with the file provided in this folder, if you want to use the "Downhill Simplex" method
-
-Reference:
-Work: https://research.wmz.ninja/articles/2018/03/on-sharing-large-arrays-when-using-pythons-multiprocessing.html
-Not working: http://briansimulator.org/sharing-numpy-arrays-between-processes/
-Not working: https://pypi.org/project/SharedArray/

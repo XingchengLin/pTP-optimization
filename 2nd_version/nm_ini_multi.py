@@ -30,7 +30,7 @@ def my_le_range(start, end, step):
         start += step
 ###########################################
 
-def nm_ini_multi( tArgs ):
+def nm_ini_multi( tArgs, NoCon ):
 
     # Read in the weight vector from weight_read.txt
     #weight_vector = [];
@@ -42,12 +42,7 @@ def nm_ini_multi( tArgs ):
     #    weight_vector.append(float(line[0]));
     #
     #weight_vector = np.asarray(weight_vector);
-    
 
-    # The Number of contacts is the column of the contact matrix;
-    X_shape = tArgs[1]
-    NoCon = X_shape[1]
-    
     # Randomly generate a initial weight_vector;
     pid = os.getpid();
     

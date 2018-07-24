@@ -30,7 +30,7 @@ def my_le_range(start, end, step):
         start += step
 ###########################################
 
-def nm_again_multi( tArgs ):
+def nm_again_multi_alter( NoCon ):
 
     # Read in the weight vector from weight_read.txt
 
@@ -54,11 +54,11 @@ def nm_again_multi( tArgs ):
     sim = np.loadtxt('tmp_simplex.txt');
 
     # Get the peak value of the pTPr;
-    from function_multi import function_multi;
+    from function_multi_alter import function_multi_alter;
     from recordCG import recordCG;
 
     # Do Downhill Simplex;
     from scipy import optimize;
-    res = optimize.minimize(function_multi, weight_vector_DR, args=tArgs, method='Nelder-Mead', callback=recordCG, options={'initial_simplex':sim});
+    res = optimize.minimize(function_multi_alter, weight_vector_DR, method='Nelder-Mead', callback=recordCG, options={'initial_simplex':sim});
     print 'res = ', res;
 

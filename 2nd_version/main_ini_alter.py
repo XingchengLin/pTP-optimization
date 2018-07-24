@@ -31,9 +31,9 @@ def my_le_range(start, end, step):
         start += step
 ###########################################
 
-## Read in qimap into a matrix;
-#matrix = np.loadtxt("../qimap.out", dtype='int8');
-#scipy.io.savemat('../qimap.mat', {'matrix': matrix});
+# Read in qimap into a matrix;
+matrix = np.loadtxt("../qimap.out", dtype='int8');
+scipy.io.savemat('../qimap.mat', {'matrix': matrix});
 
 mdict = scipy.io.loadmat("../qimap.mat");
 matrix = mdict['matrix'];
@@ -97,50 +97,27 @@ os.chdir(directory);
 p4.start();
 os.chdir("../");
 
-p5 = multiprocessing.Process(target=nm_ini_multi_alter, args=(NoCon,));
-# Get the last character of the process name, which will be a number from 1 to the # of processes;
-directory = "cg." + p5.name[-1];
-if os.path.exists(directory):
-    shutil.rmtree(directory);
-bkdirectory = directory + "/backup";
-os.makedirs(bkdirectory);
-subprocess.call("cp *.py '%s'" %(directory), shell=True);
-os.chdir(directory);
-p5.start();
-os.chdir("../");
+#p5 = multiprocessing.Process(target=nm_ini_multi_alter, args=(tArgs, NoCon));
+## Get the last character of the process name, which will be a number from 1 to the # of processes;
+#directory = "cg." + p5.name[-1];
+#if os.path.exists(directory):
+#    shutil.rmtree(directory);
+#bkdirectory = directory + "/backup";
+#os.makedirs(bkdirectory);
+#subprocess.call("cp *.py '%s'" %(directory), shell=True);
+#os.chdir(directory);
+#p5.start();
+#os.chdir("../");
+#
+#p6 = multiprocessing.Process(target=nm_ini_multi_alter, args=(tArgs, NoCon));
+## Get the last character of the process name, which will be a number from 1 to the # of processes;
+#directory = "cg." + p6.name[-1];
+#if os.path.exists(directory):
+#    shutil.rmtree(directory);
+#bkdirectory = directory + "/backup";
+#os.makedirs(bkdirectory);
+#subprocess.call("cp *.py '%s'" %(directory), shell=True);
+#os.chdir(directory);
+#p6.start();
+#os.chdir("../");
 
-p6 = multiprocessing.Process(target=nm_ini_multi_alter, args=(NoCon,));
-# Get the last character of the process name, which will be a number from 1 to the # of processes;
-directory = "cg." + p6.name[-1];
-if os.path.exists(directory):
-    shutil.rmtree(directory);
-bkdirectory = directory + "/backup";
-os.makedirs(bkdirectory);
-subprocess.call("cp *.py '%s'" %(directory), shell=True);
-os.chdir(directory);
-p6.start();
-os.chdir("../");
-
-p7 = multiprocessing.Process(target=nm_ini_multi_alter, args=(NoCon,));
-# Get the last character of the process name, which will be a number from 1 to the # of processes;
-directory = "cg." + p7.name[-1];
-if os.path.exists(directory):
-    shutil.rmtree(directory);
-bkdirectory = directory + "/backup";
-os.makedirs(bkdirectory);
-subprocess.call("cp *.py '%s'" %(directory), shell=True);
-os.chdir(directory);
-p7.start();
-os.chdir("../");
-
-p8 = multiprocessing.Process(target=nm_ini_multi_alter, args=(NoCon,));
-# Get the last character of the process name, which will be a number from 1 to the # of processes;
-directory = "cg." + p8.name[-1];
-if os.path.exists(directory):
-    shutil.rmtree(directory);
-bkdirectory = directory + "/backup";
-os.makedirs(bkdirectory);
-subprocess.call("cp *.py '%s'" %(directory), shell=True);
-os.chdir(directory);
-p8.start();
-os.chdir("../");
