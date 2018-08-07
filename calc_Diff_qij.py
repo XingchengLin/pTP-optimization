@@ -28,9 +28,19 @@ def my_le_range(start, end, step):
     while start <= end:
         yield start
         start += step
+
+
+def find_closest(A, target):
+    #A must be sorted
+    idx = A.searchsorted(target)
+    idx = np.clip(idx, 1, len(A)-1)
+    left = A[idx-1]
+    right = A[idx]
+    idx -= target - left < right - target
+    return idx
 ###########################################
 
-def calc_qij_Q(weightFile, qimapFile):
+def calc_Diff_qij(weightFile, qimapFile):
 
     weight_vector = np.loadtxt(weightFile)
     # exclude the first and the last entry;
@@ -60,31 +70,9 @@ def calc_qij_Q(weightFile, qimapFile):
 
     outfile.close();
 
-    No_qij = np.shape(matrix)[1]
 
-    for i in my_lt_range(0, No_qij, 1):
 
-        x = weighted_Q_norm
-        y = matrix[:, i].astype(float)
-
-        xbins = 100
-
-        n, bin_edges = np.histogram(x, bins=xbins)
-        sy, _ = np.histogram(x, bins=xbins, weights=y)
-
-        mean = sy / n
-
-        if i == 0:
-            qij_Q = mean
-        else:
-            qij_Q = np.vstack((qij_Q, mean))
-            
-    qij_Q = np.transpose(qij_Q)
-    # Insert Q edge in the first column;
-    qij_Q = np.insert(qij_Q, 0, bin_edges[0:-1], axis=1)
-
-    np.savetxt('qij_mean_Q.txt', qij_Q, fmt='%.3f')
-
+    
     # Calculate the free energy plot;
     topRC = 1.0;
     bottomRC = 0.0;
@@ -99,13 +87,34 @@ def calc_qij_Q(weightFile, qimapFile):
     from fenergy import fenergy
     fenergy( paramList );
 
-    from findHistMin import findHistMin
-    peakList = findHistMin();
+    from findHistExt import findHistExt
+    peakList = findHistExt()[0];
 
-    # Calculate the peak of the hist.txt, it will demarcate the TP state, not TS state!;
-
-    print("The boundaries for the TP states are:")
+    # Calculate the peak of the hist.txt, it will demarcate the transition state;
+    print("The left and right boundaries of this TS is:")
     print(peakList)
+    
+    # get the qij_mean_Q;
+    qij_mean_Q = np.loadtxt("qij_mean_Q.txt");
+    # The first column is the bin edges of Q;
+    Q_binedges = qij_mean_Q[:, 0];
+
+    # Calculate the indices of the left and right boundaries of the TS states
+    TSleftIdx = find_closest(Q_binedges, peakList[0])
+    TSrightIdx = find_closest(Q_binedges, peakList[1])
+
+    print("The indices of left and right boundaries of this TS is:")
+    print([TSleftIdx, TSrightIdx])
+
+    # find the values of <qij> at this two boundaries, ignore the first column, which is the binedge of Q-optimized
+    bValues_qij = qij_mean_Q[[TSleftIdx, TSrightIdx], 1:]
+
+    # calculate the delta<qij> (of TS boundaries)
+    diff_qij = bValues_qij[1, :] - bValues_qij[0, :]
+
+    np.savetxt('delta_qij_TS.txt', diff_qij, fmt='%.3f')
+
+    
 
 
 ############################################################################
@@ -115,6 +124,6 @@ if __name__ == "__main__":
     weightFile = sys.argv[1]
     qimapFile = sys.argv[2]
 
-    calc_qij_Q(weightFile, qimapFile)
+    calc_Diff_qij(weightFile, qimapFile)
     print("When the voice of the Silent touches my words,")
     print("I know him and therefore know myself.")

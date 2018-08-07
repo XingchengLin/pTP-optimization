@@ -135,7 +135,7 @@ def findHistMin():
 #        Print out debugging information;
 #        print (line[0], flag, value);
 
-    print peakList;
+    #print peakList;
     return peakList;
 
 
