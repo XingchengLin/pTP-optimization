@@ -62,7 +62,8 @@ tArgs = (X_ctypes, X_shape)
 from nm_again_multi import nm_again_multi;
 p1 = multiprocessing.Process(target=nm_again_multi, args=(tArgs,));
 # Get the last character of the process name, which will be a number from 1 to the # of processes;
-directory = "cg." + p1.name[-1];
+folderLabel = filter(str.isdigit, p1.name)
+directory = "cg." + folderLabel;
 os.chdir(directory);
 p1.start();
 os.chdir("../");
@@ -70,49 +71,120 @@ os.chdir("../");
 
 p2 = multiprocessing.Process(target=nm_again_multi, args=(tArgs,));
 # Get the last character of the process name, which will be a number from 1 to the # of processes;
-directory = "cg." + p2.name[-1];
+folderLabel = filter(str.isdigit, p2.name)
+directory = "cg." + folderLabel;
 os.chdir(directory);
 p2.start();
 os.chdir("../");
 
 p3 = multiprocessing.Process(target=nm_again_multi, args=(tArgs,));
 # Get the last character of the process name, which will be a number from 1 to the # of processes;
-directory = "cg." + p3.name[-1];
+folderLabel = filter(str.isdigit, p3.name)
+directory = "cg." + folderLabel;
 os.chdir(directory);
 p3.start();
 os.chdir("../");
 
 p4 = multiprocessing.Process(target=nm_again_multi, args=(tArgs,));
 # Get the last character of the process name, which will be a number from 1 to the # of processes;
-directory = "cg." + p4.name[-1];
+folderLabel = filter(str.isdigit, p4.name)
+directory = "cg." + folderLabel;
 os.chdir(directory);
 p4.start();
 os.chdir("../");
 
 p5 = multiprocessing.Process(target=nm_again_multi, args=(tArgs,));
 # Get the last character of the process name, which will be a number from 1 to the # of processes;
-directory = "cg." + p5.name[-1];
+folderLabel = filter(str.isdigit, p5.name)
+directory = "cg." + folderLabel;
 os.chdir(directory);
 p5.start();
 os.chdir("../");
 
 p6 = multiprocessing.Process(target=nm_again_multi, args=(tArgs,));
 # Get the last character of the process name, which will be a number from 1 to the # of processes;
-directory = "cg." + p6.name[-1];
+folderLabel = filter(str.isdigit, p6.name)
+directory = "cg." + folderLabel;
 os.chdir(directory);
 p6.start();
 os.chdir("../");
 
 p7 = multiprocessing.Process(target=nm_again_multi, args=(tArgs,));
 # Get the last character of the process name, which will be a number from 1 to the # of processes;
-directory = "cg." + p7.name[-1];
+folderLabel = filter(str.isdigit, p7.name)
+directory = "cg." + folderLabel;
 os.chdir(directory);
 p7.start();
 os.chdir("../");
 
 p8 = multiprocessing.Process(target=nm_again_multi, args=(tArgs,));
 # Get the last character of the process name, which will be a number from 1 to the # of processes;
-directory = "cg." + p8.name[-1];
+folderLabel = filter(str.isdigit, p8.name)
+directory = "cg." + folderLabel;
 os.chdir(directory);
 p8.start();
+os.chdir("../");
+
+p9 = multiprocessing.Process(target=nm_again_multi, args=(tArgs,));
+# Get the last character of the process name, which will be a number from 1 to the # of processes;
+folderLabel = filter(str.isdigit, p9.name)
+directory = "cg." + folderLabel;
+os.chdir(directory);
+p9.start();
+os.chdir("../");
+
+p10 = multiprocessing.Process(target=nm_again_multi, args=(tArgs,));
+# Get the last character of the process name, which will be a number from 1 to the # of processes;
+folderLabel = filter(str.isdigit, p10.name)
+directory = "cg." + folderLabel;
+os.chdir(directory);
+p10.start();
+os.chdir("../");
+
+p11 = multiprocessing.Process(target=nm_again_multi, args=(tArgs,));
+# Get the last character of the process name, which will be a number from 1 to the # of processes;
+folderLabel = filter(str.isdigit, p11.name)
+directory = "cg." + folderLabel;
+os.chdir(directory);
+p11.start();
+os.chdir("../");
+
+p12 = multiprocessing.Process(target=nm_again_multi, args=(tArgs,));
+# Get the last character of the process name, which will be a number from 1 to the # of processes;
+folderLabel = filter(str.isdigit, p12.name)
+directory = "cg." + folderLabel;
+os.chdir(directory);
+p12.start();
+os.chdir("../");
+
+p13 = multiprocessing.Process(target=nm_again_multi, args=(tArgs,));
+# Get the last character of the process name, which will be a number from 1 to the # of processes;
+folderLabel = filter(str.isdigit, p13.name)
+directory = "cg." + folderLabel;
+os.chdir(directory);
+p13.start();
+os.chdir("../");
+
+p14 = multiprocessing.Process(target=nm_again_multi, args=(tArgs,));
+# Get the last character of the process name, which will be a number from 1 to the # of processes;
+folderLabel = filter(str.isdigit, p14.name)
+directory = "cg." + folderLabel;
+os.chdir(directory);
+p14.start();
+os.chdir("../");
+
+p15 = multiprocessing.Process(target=nm_again_multi, args=(tArgs,));
+# Get the last character of the process name, which will be a number from 1 to the # of processes;
+folderLabel = filter(str.isdigit, p15.name)
+directory = "cg." + folderLabel;
+os.chdir(directory);
+p15.start();
+os.chdir("../");
+
+p16 = multiprocessing.Process(target=nm_again_multi, args=(tArgs,));
+# Get the last character of the process name, which will be a number from 1 to the # of processes;
+folderLabel = filter(str.isdigit, p16.name)
+directory = "cg." + folderLabel;
+os.chdir(directory);
+p16.start();
 os.chdir("../");
