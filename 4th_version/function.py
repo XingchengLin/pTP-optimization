@@ -22,24 +22,7 @@ def my_le_range(start, end, step):
         start += step
 ###########################################
 
-def function( weight_vector, *args ):
-
-    # Check and copy the existence of a file, and make copy;
-    for i in my_lt_range(1, 1000000, 1):
-        targetFile = "backup/weight." + str(i) + ".txt";
-        if (os.path.isfile(targetFile)):
-            pass;
-        else:
-            src = "tmp_weight.txt";
-            shutil.copy(src, targetFile);
-            break;
-    
-    # Reshape matrix back;
-    nRow=int(subprocess.check_output("wc -l ../qimap.out | cut -f1 -d' '", shell=True));
-    nCol = len(weight_vector);
-
-    matrix = np.reshape(args, (nRow, nCol));
-
+def function():
 
     # Calculate the free energy plot;
     topRC = 1.0;
@@ -104,18 +87,17 @@ def function( weight_vector, *args ):
         if (tmp > maxPTPr):
             maxPTPr = tmp;
            
-    outfile_weight = open("tmp_weight.txt", "w");
-
-    for i in my_lt_range(0, len(weight_vector), 1):
-        outfile_weight.write(str(weight_vector[i]) + "\n");
-
     outfile_weight.write("The best pTPr is:" + "\n" + str(maxPTPr) + "\n");
     outfile_weight.close();
 
-    return -1*maxPTPr;
+    return maxPTPr;
 
 ############################################################################
 
-print ("Love is an endless mystery,")
-print ("for it has nothing else to explain it.")
+if __name__ == "__main__":
+
+    function()
+
+    print("The song I came to sing")
+    print("remains unsung to this day")
 
