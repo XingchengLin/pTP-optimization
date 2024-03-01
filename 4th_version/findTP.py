@@ -27,7 +27,7 @@ def findTP( paramList ):
     # Get current working directory
     pwd = os.getcwd();
 
-    infile = open("Q.out", "r");
+    infile = open("Q_normalized.out", "r");
     outfile = open("TPtime.xvg", "w");
 
     # Read in lines from the file;

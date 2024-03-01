@@ -9,6 +9,7 @@ import subprocess;
 import os;
 import shutil;
 import numpy as np;
+import subprocess
 
 ################################################
 def my_lt_range(start, end, step):
@@ -22,13 +23,17 @@ def my_le_range(start, end, step):
         start += step
 ###########################################
 
+# Normalize Q.out
+subprocess.call("cat Q.out | awk '{print $1,$2/163}' > a && mv a Q_normalized.out", shell=True)
+
+###########################################
 def function():
 
     # Calculate the free energy plot;
     topRC = 1.0;
     bottomRC = 0.0;
     stepRC = 0.01; # We decided to have 100 number of bins;
-    inputName = "Q.out";
+    inputName = "Q_normalized.out";
     output1Name = "histQ.txt";
     output2Name = "histQ_smooth.txt";
     output3Name = "FvQ.txt";
@@ -41,7 +46,7 @@ def function():
     from findHistMin import findHistMin
     peakList = findHistMin();
 
-    print (peakList);
+    print ("peakList=",peakList);
 
     # Calculate for Transition path ensemble;
     from findTP import findTP
@@ -52,16 +57,15 @@ def function():
     subprocess.call("sort -s -n -k 1,1 TPtime.xvg > TPtime.sort.xvg", shell=True);
 
     # Get QTP files;
-    subprocess.call("paste Q.out TPtime.sort.xvg | awk '{if($4==1)print $1,$2}'>QTP.out", shell=True);
+    subprocess.call("paste Q_normalized.out TPtime.sort.xvg | awk '{if($4==1)print $1,$2}'>QTP.out", shell=True);
 
-    
     # Calculate Q for TP.xtc
 
 #    # Calculate p(TP);
-    no=float(subprocess.check_output("wc -l Q.out | cut -f1 -d' '", shell=True));
-    no_TP=float(subprocess.check_output("wc -l QTP.out | cut -f1 -d' '", shell=True));
+    no = float(subprocess.check_output("wc -l Q_normalized.out | awk '{print $1}'", shell=True))
+    no_TP=float(subprocess.check_output("wc -l QTP.out | awk '{print $1}'", shell=True));
 
-    print (no, no_TP);
+    print ("p(TP)=",no, no_TP);
 
 #    # Calculate P(r) and P(r|TP);
     inputName = "QTP.out";
@@ -87,9 +91,7 @@ def function():
         if (tmp > maxPTPr):
             maxPTPr = tmp;
            
-    outfile_weight.write("The best pTPr is:" + "\n" + str(maxPTPr) + "\n");
-    outfile_weight.close();
-
+    print ("maxPTPr=",maxPTPr);
     return maxPTPr;
 
 ############################################################################
