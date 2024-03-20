@@ -9,7 +9,6 @@ import subprocess;
 import os;
 import shutil;
 import numpy as np;
-import subprocess
 
 ################################################
 def my_lt_range(start, end, step):
@@ -23,8 +22,29 @@ def my_le_range(start, end, step):
         start += step
 ###########################################
 
-# Normalize Q.out
-subprocess.call("cat Q.out | awk '{print $1,$2/163}' > a && mv a Q_normalized.out", shell=True)
+# Load data from Q.out using numpy
+data_Q = np.loadtxt("Q.out")
+
+# Extract the second column
+values_Q = data_Q[:,1]
+
+# Check if all values are between 0 and 1
+if not np.all((values_Q >= 0) & (values_Q <= 1)):
+
+    # Find the maximum value
+    max_Q = np.max(values_Q)
+
+    # Normalize the second column
+    normalized_values_Q = values_Q/max_Q
+
+    # Combine the normalized values into a new array
+    normalized_Q = np.column_stack((data_Q[:,0], normalized_values_Q))
+
+    # Save the normalized data to Q_normalized.out
+    np.savetxt('Q_normalized.out', normalized_Q, fmt=['%0.6f','%0.12f'])
+    
+else:
+    np.savetxt('Q_normalized.out', data_Q, fmt=['%0.6f','%0.12f'])
 
 ###########################################
 def function():
