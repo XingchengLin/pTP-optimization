@@ -63,10 +63,10 @@ def function():
     from fenergy import fenergy
     fenergy( paramList );
 
-    from findHistMin import findHistMin
-    peakList = findHistMin();
+    from find_peaks_function import find_peaks_function
+    peakList = find_peaks_function();
 
-    print ("peakList=",peakList);
+    print ("peakList =",peakList);
 
     # Calculate for Transition path ensemble;
     from findTP import findTP
@@ -85,7 +85,7 @@ def function():
     no = float(subprocess.check_output("wc -l Q_normalized.out | awk '{print $1}'", shell=True))
     no_TP=float(subprocess.check_output("wc -l QTP.out | awk '{print $1}'", shell=True));
 
-    print ("p(TP)=",no, no_TP);
+    print ("p(TP) =",no, no_TP);
 
 #    # Calculate P(r) and P(r|TP);
     inputName = "QTP.out";
@@ -111,7 +111,7 @@ def function():
         if (tmp > maxPTPr):
             maxPTPr = tmp;
            
-    print ("maxPTPr=",maxPTPr);
+    print ("maxPTPr =",maxPTPr);
     return maxPTPr;
 
 ############################################################################
