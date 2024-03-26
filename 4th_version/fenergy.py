@@ -78,13 +78,9 @@ def fenergy( paramList ):
             free[i] = 0;
 
 
-    # Smooth the data;
     import numpy as np;
-    from scipy.signal import savgol_filter;
     hist = np.asarray(hist);
-    hist_smooth = savgol_filter(hist, 9, 2);
-
-
+   
     # Select the offset to make free energy plot zero-based.
     #
     offset  = 100;
@@ -101,7 +97,7 @@ def fenergy( paramList ):
 
         # Even if histogram is zero, we still output;
         outfile1.write(str(xtmp) + "\t" + str(hist[i]) + "\n");
-        outfile2.write(str(xtmp) + "\t" + str(hist_smooth[i]) + "\n");
+      
 
         if (free[i] != 0):
 

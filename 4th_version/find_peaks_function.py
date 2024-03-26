@@ -35,7 +35,7 @@ def find_peaks_function ():
     y = np.array(y)
 
     # Finding the peaks
-    peaks,_ = find_peaks(y, distance=50)
+    peaks,_ = find_peaks(y, distance=5, prominence=0.02)
 
     print("peak_index =", peaks)
 

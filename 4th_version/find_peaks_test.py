@@ -15,7 +15,7 @@ x = np.array(x)
 y = np.array(y)
 
 # Finding the peaks
-peaks,_ = find_peaks(y, distance=50)
+peaks,_ = find_peaks(y, distance=5, prominence=0.02)
 
 print("peak_index=", peaks)
 
