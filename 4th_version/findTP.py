@@ -20,12 +20,18 @@ def my_le_range(start, end, step):
         yield start
         start += step
 #############################################
+def clear_lists(tmp_timeList, tmp_QList):
+    """Clears the temporary time and Q value lists."""
+    del tmp_timeList[:]
+    del tmp_QList[:]
+
+def add_to_lists(line, tmp_timeList, tmp_QList):
+    """Adds elements from the given line to the temporary time and Q value lists."""
+    tmp_timeList.append(line[0])
+    tmp_QList.append(line[1])
+##############################################
 
 def findTP( paramList ):
-
-
-    # Get current working directory
-    pwd = os.getcwd();
 
     infile = open("Q_normalized.out", "r");
     outfile = open("TPtime.xvg", "w");
@@ -39,6 +45,8 @@ def findTP( paramList ):
     length = len(lines);
 
     # Do a loop to check if each time stamp is in TP;
+
+    print("paramlist", paramList);
 
     # Define the unfolded/folded threshold;
     unfoldBar = float(paramList[0]);
@@ -57,9 +65,7 @@ def findTP( paramList ):
     # The first line output from Plumed Driver is not useful;
     for i in my_lt_range(1, length, 1):
 
-        # Print to show our progress;
-    #    print i;
-       
+
         line = lines[i].split();
 
         # Here I set it as starting from the unfolded basin;
@@ -92,64 +98,33 @@ def findTP( paramList ):
 #            time.sleep(1);
 
         # If TPflag1 == 2 and TPflag2 == 1, start storing data into a list;
-        if (TPflag1 == 2 and TPflag2 == 1):
-            tmp_timeList.append(line[0]);
-            tmp_QList.append(line[1]);
-        # If TPflag1 == 3 and TPflag2 == 1, dump out the tmp_arrays and say "yes";
-        elif(TPflag1 == 3 and TPflag2 == 1):
-            tmp_length = len(tmp_timeList);
-            for j in my_lt_range(0, tmp_length, 1):
-                outfile.write(tmp_timeList[j] + " " + str(1) + "\n");
-            # Empty list;
-            del tmp_timeList[:];
-            del tmp_QList[:];
-            # dump itself into file and say "no";
-            outfile.write(line[0] + " " + str(0) + "\n");
-        # If TPflag1 == 2 and TPflag2 == 2, start storing data into a list;
-        elif(TPflag1 == 2 and TPflag2 == 2):
-            tmp_timeList.append(line[0]);
-            tmp_QList.append(line[1]);
-        # If TPflag1 == 1 and TPflag2 == 2, dump out the tmp_arrays and say "yes";
-        elif(TPflag1 == 1 and TPflag2 == 2):
-            tmp_length = len(tmp_timeList);
-            for j in my_lt_range(0, tmp_length, 1):
-                outfile.write(tmp_timeList[j] + " " + str(1) + "\n");
-            # Empty list;
-            del tmp_timeList[:];
-            del tmp_QList[:];
-            # dump itself into file and say "no";
-            outfile.write(line[0] + " " + str(0) + "\n");
-        # If TPflag1 == 1 and TPflag2 == 1, dump out the tmp_arrays and say "no";
-        elif(TPflag1 == 1 and TPflag2 == 1):
-            tmp_length = len(tmp_timeList);
-            for j in my_lt_range(0, tmp_length, 1):
-                outfile.write(tmp_timeList[j] + " " + str(0) + "\n");
-            # Empty list;
-            del tmp_timeList[:];
-            del tmp_QList[:];
-            # dump itself into file and say "no";
-            outfile.write(line[0] + " " + str(0) + "\n");
-        # If TPflag1 == 3 and TPflag2 == 2, dump out the tmp_arrays and say "no";
-        elif(TPflag1 == 3 and TPflag2 == 2):
-            tmp_length = len(tmp_timeList);
-            for j in my_lt_range(0, tmp_length, 1):
-                outfile.write(tmp_timeList[j] + " " + str(0) + "\n");
-            # Empty list;
-            del tmp_timeList[:];
-            del tmp_QList[:];
-            # dump itself into file and say "no";
-            outfile.write(line[0] + " " + str(0) + "\n");
-        # Other situation, just write down the value and say "no";  
+        if TPflag1 == 2 and TPflag2 == 1:
+            add_to_lists(line, tmp_timeList, tmp_QList)
+        elif TPflag1 == 3 and TPflag2 == 1:
+            for j in my_lt_range(0, len(tmp_timeList), 1):
+                outfile.write(tmp_timeList[j] + " " + str(1) + "\n")
+            clear_lists(tmp_timeList, tmp_QList)
+            outfile.write(line[0] + " " + str(0) + "\n")
+        elif TPflag1 == 2 and TPflag2 == 2:
+            add_to_lists(line, tmp_timeList, tmp_QList)
+        elif TPflag1 == 1 and TPflag2 == 2:
+            for j in my_lt_range(0, len(tmp_timeList), 1):
+                outfile.write(tmp_timeList[j] + " " + str(1) + "\n")
+            clear_lists(tmp_timeList, tmp_QList)
+            outfile.write(line[0] + " " + str(0) + "\n")
+        elif TPflag1 == 1 and TPflag2 == 1:
+            for j in my_lt_range(0, len(tmp_timeList), 1):
+                outfile.write(tmp_timeList[j] + " " + str(0) + "\n")
+            clear_lists(tmp_timeList, tmp_QList)
+            outfile.write(line[0] + " " + str(0) + "\n")
+        elif TPflag1 == 3 and TPflag2 == 2:
+            for j in my_lt_range(0, len(tmp_timeList), 1):
+                outfile.write(tmp_timeList[j] + " " + str(0) + "\n")
+            clear_lists(tmp_timeList, tmp_QList)
+            outfile.write(line[0] + " " + str(0) + "\n")
         else:
-            outfile.write(line[0] + " " + str(0) + "\n");
+            outfile.write(line[0] + " " + str(0) + "\n")
 
-    # Release the rest of tmp List;
-    tmp_length = len(tmp_timeList);
-    for j in my_lt_range(0, tmp_length, 1):
-        outfile.write(tmp_timeList[j] + " " + str(0) + "\n");
-    # Empty list;
-    del tmp_timeList[:];
-    del tmp_QList[:];
 
     outfile.close();
 

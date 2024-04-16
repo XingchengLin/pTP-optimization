@@ -108,9 +108,3 @@ def fenergy( paramList ):
     
     return 
 
-
-
-
-
-
-
